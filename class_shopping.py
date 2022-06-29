@@ -14,7 +14,7 @@ class Shop:
             if wishl == self.entry.productsList[i].cod:
                 much = int(input('Quantidade que deseja comprar:\n'))
                 limial=self.entry.productsList[i].price*much
-                self.bull(Bullet(valor=-limial))
+                self.bull.valor=-limial
                 self.entry.productsList[i].unit = much
                 print(self.bull(Bullet(valor)))
                 print('_______________________________________________________________________________________________________')
