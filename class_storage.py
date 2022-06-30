@@ -1,18 +1,21 @@
 from class_product import *
+from class_move import *
+from class_factory import *
 
-cont = 0
-lont = 0
+
 class Storage:
     def __init__(self):
         self.productsList= []
+        self.control = Move()
 
     def save_products(self):
         codE = str(len(self.productsList)+1)
         descryptionE = input('Informe  o nome:\n')
         factoryE = input('Informe o fabricante:\n')
-        unitE = input('Informe a quantia do produto:\n')
+        unitE = int(input('Informe a quantia do produto:\n'))
         priceE = float(input('Valor do produto:\n'))
         self.productsList.append(Product(cod=codE, description=descryptionE, factory=factoryE, unit=unitE,price=priceE))
+        self.productsList.append(Factory(name=factoryE, producode=codE, descPro=descryptionE))
         print('O código do produto é:',codE,'*')
         print('Produto Adicionado!')
         print('_______________________________________________________________________________________________________')
@@ -32,36 +35,48 @@ class Storage:
             for i in range(len(self.productsList)):
                 if entry == self.productsList[i].cod:
                     print(self.productsList[i])
+                    print('___________________________________________________________________________________________________')
                 else:
                     limo += 1
                 if limo == len(self.productsList):
                     print('Código não existente')
 
     def change_product(self):
-        wish = input ('Deseja mudar todos os dados do produto ou um dado em específico?\nSe todos digite (A)\nSe específico digite (E)')
-        if wish == 'A' or 'a':
+        wish = input ('Deseja mudar todos os dados do produto ou um dado em específico?\nSe todos digite (A)\nSe específico digite (E)\n')
+        if wish == 'A':
             wishl = input('Informe o código do produto:\n')
             for i in range(len(self.productsList)):
                 if wishl == self.productsList[i].cod:
                     self.productsList[i].descryption = input('Nova descrição:\n')
+                    self.control.sells.append(Move(f'Descrição do produto',self.productsList[i].cod,' alterada!'))
                     print('_______________________________________________________________________________________________________')
                     self.productsList[i].factory = input('Novo nome de fabricante:\n')
+                    self.control.sells.append(Move(f'Nome do fabricante do produto',self.productsList[i].cod,' alterado!'))
+                    print('_______________________________________________________________________________________________________')
+                    self.productsList[i].price = input('Novo preço:\nR$')
+                    self.control.sells.append(Move(f'Preço do produto',self.productsList[i].cod,' alterado!'))
                     print('_______________________________________________________________________________________________________')
                 else:
                     cont += 1
                 if cont == len(self.productsList):
                     print('Código não existente')
                 print('_______________________________________________________________________________________________________')
-        elif wish == 'E' or 'e':
+        elif wish == 'E':
             wishl = input('Informe o código do produto:\n')
             for i in range(len(self.productsList)):
                 if wishl == self.productsList[i].cod:
-                    will = input ('Deseja mudar a descrição ou o nome de fabricante do produto?\nSe descrição, digite (D)\nSe fabricante, digite (F)\n')
+                    will = input ('Deseja mudar a descrição ou o nome de fabricante do produto?\nSe descrição, digite (D)\nSe fabricante, digite (F)\nSe preço, digite (P)\n')
                     if will == 'D':
-                        self.listaContatos[i].descryption = input('Nova descrição:\n')
+                        self.productsList[i].descryption = input('Nova descrição:\n')
+                        self.control.sells.append(Move(f'Descrição do produto',self.productsList[i].cod,' alterada!'))
                         print('_______________________________________________________________________________________________________')
                     elif will == 'F':
-                        self.listaContatos[i].factory = input('Novo nome de fabricante:\n')
+                        self.productsList[i].factory = input('Novo nome de fabricante:\n')
+                        self.control.sells.append(Move(f'Nome do fabricante do produto',self.productsList[i].cod,' alterado!'))
+                        print('_______________________________________________________________________________________________________')
+                    elif will == 'P':
+                        self.productsList[i].price = input('Novo preço:\nR$')
+                        self.control.sells.append(Move(f'Preço do produto',self.productsList[i].cod,' alterado!'))
                         print('_______________________________________________________________________________________________________')
                 else:
                     lont += 1
@@ -69,10 +84,19 @@ class Storage:
                     print('Código não existente')
                 print('_______________________________________________________________________________________________________')
     def add_product(self):
-        lup = input('Digite o código do produto que você deseja adicionar mais unidades')
+        lup = input('Digite o código do produto que você deseja adicionar mais unidades\n')
         for i in range(len(self.productsList)):
             if lup == self.productsList[i].cod:
                 luple = int(input('Quantidade que deseja adicionar\n'))
-                self.productsList[i].unit = luple
+                self.productsList[i].unit += luple
+                self.control.sells.append(Move(f'Adicionado ao estoque do produto uma quantia de: {luple}'))
                 print('Quantidade de',luple,'Adicionado ao estoque do produto com sucesso!!')
+
+
+
+
+
+
+
+
 
