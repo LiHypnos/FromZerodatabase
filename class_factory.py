@@ -1,5 +1,5 @@
 class Factory:
-    def __init__(self, name, producode, descPro):
+    def __init__(self, name, cod, descPro):
         self.name = name
-        self.producode = producode
+        self.cod = cod
         self.descPro = descPro

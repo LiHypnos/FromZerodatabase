@@ -1,12 +1,15 @@
 from class_product import *
-from class_move import *
+
 from class_factory import *
 
 
 class Storage:
     def __init__(self):
+        self.factoryList= []
         self.productsList= []
-        self.control = Move()
+        self.his= []
+        self.control= []
+
 
     def save_products(self):
         codE = str(len(self.productsList)+1)
@@ -14,8 +17,9 @@ class Storage:
         factoryE = input('Informe o fabricante:\n')
         unitE = int(input('Informe a quantia do produto:\n'))
         priceE = float(input('Valor do produto:\n'))
-        self.productsList.append(Product(cod=codE, description=descryptionE, factory=factoryE, unit=unitE,price=priceE))
-        self.productsList.append(Factory(name=factoryE, producode=codE, descPro=descryptionE))
+        self.factoryList.append(Factory(name=factoryE, cod=codE, descPro=descryptionE))
+        Fac=self.factoryList
+        self.productsList.append(Product(cod=codE, description=descryptionE, factory=Fac, unit=unitE,price=priceE))
         print('O código do produto é:',codE,'*')
         print('Produto Adicionado!')
         print('_______________________________________________________________________________________________________')
@@ -48,13 +52,13 @@ class Storage:
             for i in range(len(self.productsList)):
                 if wishl == self.productsList[i].cod:
                     self.productsList[i].descryption = input('Nova descrição:\n')
-                    self.control.sells.append(Move(f'Descrição do produto',self.productsList[i].cod,' alterada!'))
+                    self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!')
                     print('_______________________________________________________________________________________________________')
                     self.productsList[i].factory = input('Novo nome de fabricante:\n')
-                    self.control.sells.append(Move(f'Nome do fabricante do produto',self.productsList[i].cod,' alterado!'))
+                    self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!')
                     print('_______________________________________________________________________________________________________')
                     self.productsList[i].price = input('Novo preço:\nR$')
-                    self.control.sells.append(Move(f'Preço do produto',self.productsList[i].cod,' alterado!'))
+                    self.his.append(f'Preço do produto {self.productsList[i].cod} alterado!')
                     print('_______________________________________________________________________________________________________')
                 else:
                     cont += 1
@@ -68,15 +72,15 @@ class Storage:
                     will = input ('Deseja mudar a descrição ou o nome de fabricante do produto?\nSe descrição, digite (D)\nSe fabricante, digite (F)\nSe preço, digite (P)\n')
                     if will == 'D':
                         self.productsList[i].descryption = input('Nova descrição:\n')
-                        self.control.sells.append(Move(f'Descrição do produto',self.productsList[i].cod,' alterada!'))
+                        self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!')
                         print('_______________________________________________________________________________________________________')
                     elif will == 'F':
                         self.productsList[i].factory = input('Novo nome de fabricante:\n')
-                        self.control.sells.append(Move(f'Nome do fabricante do produto',self.productsList[i].cod,' alterado!'))
+                        self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!')
                         print('_______________________________________________________________________________________________________')
                     elif will == 'P':
                         self.productsList[i].price = input('Novo preço:\nR$')
-                        self.control.sells.append(Move(f'Preço do produto',self.productsList[i].cod,' alterado!'))
+                        self.his.append(f'Preço do produto {self.productsList[i].cod} alterado!')
                         print('_______________________________________________________________________________________________________')
                 else:
                     lont += 1
@@ -89,8 +93,16 @@ class Storage:
             if lup == self.productsList[i].cod:
                 luple = int(input('Quantidade que deseja adicionar\n'))
                 self.productsList[i].unit += luple
-                self.control.sells.append(Move(f'Adicionado ao estoque do produto uma quantia de: {luple}'))
+                self.his.append(f'Adicionado ao estoque do produto {self.productsList[i].cod} uma quantia de: {luple}')
                 print('Quantidade de',luple,'Adicionado ao estoque do produto com sucesso!!')
+
+    def saveHistory(self):
+        self.his.append()
+
+
+    def history(self):
+        for i in range(len(self.his)):
+            print(self.his[i])
 
 
 

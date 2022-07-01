@@ -1,13 +1,12 @@
 from class_storage import *
 from class_shopping import *
-from class_move import *
+
 
 class Menu:
     def __init__(self):
         itens = Storage()
         buyl = Shop()
         buyl.entry = itens
-        his = Move()
 
         #iniciar menu
         while True:
@@ -31,7 +30,8 @@ class Menu:
                     itens.add_product()
 
                 elif entryp == '5':
-                    his.showsells()
+                    itens.history()
+
 
                 else:
                     print('Opção Inválida!')
@@ -45,8 +45,7 @@ class Menu:
                     buyl.shopping()
 
                 elif entrypu == '3':
-                    his.showbuys()
-
+                    buyl.history()
 
                 elif entrypu == '4':
                     break
