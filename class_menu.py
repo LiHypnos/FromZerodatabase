@@ -45,7 +45,7 @@ class Menu:
                     buyl.shopping()
 
                 elif entrypu == '3':
-                    buyl.history()
+                    buyl.historyF()
 
                 elif entrypu == '4':
                     break

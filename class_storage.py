@@ -9,9 +9,14 @@ class Storage:
         self.productsList= []
         self.his= []
         self.control= []
+        self.productsList.append(Product(cod='1', description="Bolacha", factory="Maria", unit=100, price=5))
+        self.factoryList.append(Factory(cod='1', descPro="bolacha", name='Maria'))
+        self.factoryList.append(Factory(cod='2', descPro="Lapís de Cor", name='FaberCastle'))
+        self.productsList.append(Product(cod='2', description="Lapís de Cor", factory="FaberCastle", unit=100, price=12))
 
 
     def save_products(self):
+
         codE = str(len(self.productsList)+1)
         descryptionE = input('Informe  o nome:\n')
         factoryE = input('Informe o fabricante:\n')
@@ -96,8 +101,8 @@ class Storage:
                 self.his.append(f'Adicionado ao estoque do produto {self.productsList[i].cod} uma quantia de: {luple}')
                 print('Quantidade de',luple,'Adicionado ao estoque do produto com sucesso!!')
 
-    def saveHistory(self):
-        self.his.append()
+    def saveHistory(self,valor):
+        self.his.append(valor)
 
 
     def history(self):
