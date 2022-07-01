@@ -1,12 +1,13 @@
 from class_storage import *
 from class_shopping import *
-
+from class_myBank import *
 
 class Menu:
     def __init__(self):
         itens = Storage()
         buyl = Shop()
         buyl.entry = itens
+        coin = Bullet()
 
         #iniciar menu
         while True:
@@ -37,7 +38,7 @@ class Menu:
                     print('Opção Inválida!')
 
             elif elo == 'C':
-                entrypu = input('Deseja comprar um produto ou ir ao ''shopping''?\n1 - Comprar um produto\n2 - Shopping\n3 - Historico de Compras\n4 - SAIR\n')
+                entrypu = input('Deseja comprar um produto ou ir ao ''shopping''?\n1 - Comprar um produto\n2 - Shopping\n3 - Historico de Compras\n4 - Conta Báncaria\n5 - SAIR\n')
                 if entrypu == '1':
                     buyl.buy()
 
@@ -48,6 +49,19 @@ class Menu:
                     buyl.historyF()
 
                 elif entrypu == '4':
+                    lus = input('Deseja adicionar saldo a carteira (1) ou vizualizar seu extrato bancario (2)?')
+                    if lus == '1':
+                        coin.add()
+
+                    elif lus == '2':
+                        coin.extract
+
+                    else:
+                        print('Opção inválida\n_________________________________________________________________________')
+                        pass
+
+
+                elif entrypu == '5':
                     break
 
                 else:

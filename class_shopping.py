@@ -1,5 +1,8 @@
 from class_storage import *
 from class_myBank import *
+import datetime
+
+time=datetime.datetime
 
 class Shop:
     def __init__(self, total=0, preT=0):
@@ -19,14 +22,17 @@ class Shop:
             if wishl == self.entry.productsList[i].cod:
                 much = int(input('Quantidade que deseja comprar:\n'))
                 limial=self.entry.productsList[i].price*much
-                self.bull.valor-=limial
-                self.entry.productsList[i].unit -= much
-                print('O valor total da compra foi de: R$',limial)
-                print('Seu saldo é de: R$',self.bull.valor)
-                self.history.append(f'Compra no valor de: R$ {limial} do item: {self.entry.productsList[i].description}!')
-                self.entry.saveHistory(f'Venda no valor de: R$ {limial} do item:{self.entry.productsList[i].description}!')
-                #self.control.append(Storage(f'Venda no valor de: R$ {limial} do item:{self.entry.productsList[i].description}!'))
-                print('_______________________________________________________________________________________________________')
+                if self.bull.valor<limial:
+                    print('Você não tem saldo o suficiente para efetuar essa compra')
+                elif:
+                    self.bull.valor-=limial
+                    self.entry.productsList[i].unit -= much
+                    print('O valor total da compra foi de: R$',limial)
+                    print('Seu saldo é de: R$',self.bull.valor)
+                    self.history.append(f'Compra no valor de: R$ {limial} do item: {self.entry.productsList[i].description}!',time)
+                    self.entry.saveHistory(f'Venda no valor de: R$ {limial} do item:{self.entry.productsList[i].description}!',time)
+                    #self.control.append(Storage(f'Venda no valor de: R$ {limial} do item:{self.entry.productsList[i].description}!'))
+                    print('_______________________________________________________________________________________________________')
             else:
                 pass
 
@@ -40,7 +46,7 @@ class Shop:
                 if wilt == self.entry.productsList[a].cod:
                     much = int(input('Quantidade que deseja comprar:\n'))
                     #self.control.append(Storage(f'A quantidade de {much} do produto {self.entry.productsList[a].cod} foi selecionada em um carrinho de compras!'))
-                    self.entry.saveHistory(f'A quantidade de {much} do produto {self.entry.productsList[a].cod} foi selecionada em um carrinho de compras!')
+                    self.entry.saveHistory(f'A quantidade de {much} do produto {self.entry.productsList[a].cod} foi selecionada em um carrinho de compras!',time)
                     print(type(aslut))
                     print(type(much))
                     aslut += much
@@ -48,18 +54,22 @@ class Shop:
                     self.entry.productsList[a].unit -= much
                     print('Preço atual das compras: R$',limial)
                     print('_______________________________________________________________________________________________________')
-                    self.history.append(f'O item {self.entry.productsList[a].description} Foi adicionado no carrinho com sucesso!')
+                    self.history.append(f'O item {self.entry.productsList[a].description} Foi adicionado no carrinho com sucesso!',time)
                     #self.control.append(Storage(f'Item reservado no carrinho no valor de: R${limial} do item:{self.entry.productsList[i].description}!'))
                     self.entry.saveHistory(f'Item reservado no carrinho no valor de: R${limial} do item:{self.entry.productsList[a].description}!')
-                    wilt = input('Deseja continuar as compras? Se sim, digite o proximo código do produto. *Se deseja confirmar as compras, digite (C)\nSe deseja sair, digite (S)\n')
+                    wilt = input('Deseja continuar as compras? Se sim, digite o proximo código do produto. *Se deseja confirmar as compras, digite (C)\nSe deseja sair, digite (S)\n',time)
                     if wilt == 'C':
-                        self.bull.valor -= limial
-                        print('Preço total das compras: R$',limial)
-                        print('Seu saldo é de: R$',self.bull.valor)
-                        print('___________________________________________________________________________________________________________')
-                        self.history.append(f'"SHOPPING", compra realizada no valor de: R${limial} de um total de {aslut}itens!')
-                        #self.control.append(Storage(f'"SHOPPING" no valor de: R${limial} do item:{self.entry.productsList[i].description}!'))
-                        self.entry.saveHistory(f'"SHOPPING" no valor de: R${limial} do item:{self.entry.productsList[a].description}!')
+                        if self.bull.valor<limial:
+                            print('Você ficará em débito')
+                            pass
+                        elif:
+                            self.bull.valor -= limial
+                            print('Preço total das compras: R$',limial)
+                            print('Seu saldo é de: R$',self.bull.valor)
+                            print('___________________________________________________________________________________________________________')
+                            self.history.append(f'"SHOPPING", compra realizada no valor de: R${limial} de um total de {aslut}itens!',time)
+                            #self.control.append(Storage(f'"SHOPPING" no valor de: R${limial} do item:{self.entry.productsList[i].description}!'))
+                            self.entry.saveHistory(f'"SHOPPING" no valor de: R${limial} do item:{self.entry.productsList[a].description}!',time)
                 elif wilt == 'S':
                     break
 

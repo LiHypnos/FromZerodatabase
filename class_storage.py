@@ -1,7 +1,10 @@
+import datetime
 from class_product import *
-
+from datetime
 from class_factory import *
 
+now = datetime.time
+time = datetime.datetime
 
 class Storage:
     def __init__(self):
@@ -13,6 +16,7 @@ class Storage:
         self.factoryList.append(Factory(cod='1', descPro="bolacha", name='Maria'))
         self.factoryList.append(Factory(cod='2', descPro="Lapís de Cor", name='FaberCastle'))
         self.productsList.append(Product(cod='2', description="Lapís de Cor", factory="FaberCastle", unit=100, price=12))
+
 
 
     def save_products(self):
@@ -57,13 +61,13 @@ class Storage:
             for i in range(len(self.productsList)):
                 if wishl == self.productsList[i].cod:
                     self.productsList[i].descryption = input('Nova descrição:\n')
-                    self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!')
+                    self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!',time)
                     print('_______________________________________________________________________________________________________')
                     self.productsList[i].factory = input('Novo nome de fabricante:\n')
-                    self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!')
+                    self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!',time)
                     print('_______________________________________________________________________________________________________')
                     self.productsList[i].price = input('Novo preço:\nR$')
-                    self.his.append(f'Preço do produto {self.productsList[i].cod} alterado!')
+                    self.his.append(f'Preço do produto {self.productsList[i].cod} alterado!',time)
                     print('_______________________________________________________________________________________________________')
                 else:
                     cont += 1
@@ -77,15 +81,15 @@ class Storage:
                     will = input ('Deseja mudar a descrição ou o nome de fabricante do produto?\nSe descrição, digite (D)\nSe fabricante, digite (F)\nSe preço, digite (P)\n')
                     if will == 'D':
                         self.productsList[i].descryption = input('Nova descrição:\n')
-                        self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!')
+                        self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!',time)
                         print('_______________________________________________________________________________________________________')
                     elif will == 'F':
                         self.productsList[i].factory = input('Novo nome de fabricante:\n')
-                        self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!')
+                        self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!',time)
                         print('_______________________________________________________________________________________________________')
                     elif will == 'P':
                         self.productsList[i].price = input('Novo preço:\nR$')
-                        self.his.append(f'Preço do produto {self.productsList[i].cod} alterado!')
+                        self.his.append(f'Preço do produto {self.productsList[i].cod} alterado!',time)
                         print('_______________________________________________________________________________________________________')
                 else:
                     lont += 1
@@ -98,7 +102,7 @@ class Storage:
             if lup == self.productsList[i].cod:
                 luple = int(input('Quantidade que deseja adicionar\n'))
                 self.productsList[i].unit += luple
-                self.his.append(f'Adicionado ao estoque do produto {self.productsList[i].cod} uma quantia de: {luple}')
+                self.his.append(f'Adicionado ao estoque do produto {self.productsList[i].cod} uma quantia de: {luple}',time)
                 print('Quantidade de',luple,'Adicionado ao estoque do produto com sucesso!!')
 
     def saveHistory(self,valor):
