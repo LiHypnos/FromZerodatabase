@@ -1,7 +1,13 @@
 import datetime
 from class_product import *
-from datetime
 from class_factory import *
+#databank link
+#_______________________________________________________________________________________________________________________
+import mysql.connector
+conexão = mysql
+#_______________________________________________________________________________________________________________________
+
+
 
 now = datetime.time
 time = datetime.datetime
@@ -39,7 +45,7 @@ class Storage:
             for i in range(len(self.productsList)):
                 print('Código:',self.productsList[i].cod,'/',
                     'Descrição:',self.productsList[i].description,'/',
-                    'Fabricante:',self.productsList[i].factory,'/',
+                    'Fabricante:',self.factoryList[i].name,'/',
                     'Unidades:',self.productsList[i].unit,'/',
                     'Preço: R$',self.productsList[i].price)
                 print('___________________________________________________________________________________________________')
@@ -47,7 +53,7 @@ class Storage:
             entry = input('Informe o código do produto:\n')
             for i in range(len(self.productsList)):
                 if entry == self.productsList[i].cod:
-                    print(self.productsList[i])
+                    print('Código:',self.productsList[i].cod,'/','Descrição:',self.productsList[i].description,'/','Fabricante:',self.factoryList[i].name,'/','Unidades:',self.productsList[i].unit,'/','Preço: R$', self.productsList[i].price,'/')
                     print('___________________________________________________________________________________________________')
                 else:
                     limo += 1
@@ -63,7 +69,7 @@ class Storage:
                     self.productsList[i].descryption = input('Nova descrição:\n')
                     self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!',time)
                     print('_______________________________________________________________________________________________________')
-                    self.productsList[i].factory = input('Novo nome de fabricante:\n')
+                    self.factoryList[i].name = input('Novo nome de fabricante:\n')
                     self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!',time)
                     print('_______________________________________________________________________________________________________')
                     self.productsList[i].price = input('Novo preço:\nR$')
@@ -84,7 +90,7 @@ class Storage:
                         self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!',time)
                         print('_______________________________________________________________________________________________________')
                     elif will == 'F':
-                        self.productsList[i].factory = input('Novo nome de fabricante:\n')
+                        self.factoryList[i].name = input('Novo nome de fabricante:\n')
                         self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!',time)
                         print('_______________________________________________________________________________________________________')
                     elif will == 'P':

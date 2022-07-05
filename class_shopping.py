@@ -24,7 +24,7 @@ class Shop:
                 limial=self.entry.productsList[i].price*much
                 if self.bull.valor<limial:
                     print('Você não tem saldo o suficiente para efetuar essa compra')
-                elif:
+                else:
                     self.bull.valor-=limial
                     self.entry.productsList[i].unit -= much
                     print('O valor total da compra foi de: R$',limial)
@@ -62,7 +62,7 @@ class Shop:
                         if self.bull.valor<limial:
                             print('Você ficará em débito')
                             pass
-                        elif:
+                        else:
                             self.bull.valor -= limial
                             print('Preço total das compras: R$',limial)
                             print('Seu saldo é de: R$',self.bull.valor)
