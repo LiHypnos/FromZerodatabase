@@ -1,11 +1,12 @@
 from class_storage import *
-from class_shopping import *
+
 from class_myBank import *
+from class_shop import *
 
 class Menu:
     def __init__(self):
         itens = Storage()
-        buyl = Shop()
+        buyl = Shoper()
         buyl.entry = itens
         coin = Bullet()
 
@@ -13,10 +14,25 @@ class Menu:
         while True:
             elo = input('Você é um cliente ou funcionario?\nSe cliente, digite (C)\nSe fúncionario digite (F):\n')
             if elo == 'F':
-                entryp = input('Informe a opção desejada\n1 - Adicionar Produto\n2 - listar Produtos\n3 - Alterar Produtos\n4 - Adicionar estoque de um produto\n5 - Histórico\n0 - SAIR\n')
+                entryp = input('Informe a opção desejada\nA - Indicar Fabricante\nF - Adicionar Fabricante\n1 - Adicionar Produto\n2 - listar Produtos\n3 - Alterar Produtos\n4 - Adicionar estoque de um produto\n5 - Histórico\n0 - SAIR\n')
 
-                if entryp == '1':
-                    itens.save_products()
+                if entryp == 'A':
+                    factory = int(input('Código do Fabricante:\n'))
+                    up = int(input('Código do produto que deseja indicar:\n'))
+                    itens.link_factory(factory,up)
+
+
+                elif entryp == 'F':
+                    name = input('Nome da Fábrica:\n')
+                    cod = None
+                    itens.save_fac(name, cod)
+
+                elif entryp == '1':
+                    description=input('Descrição do Produto:\n')
+                    unit=int(input('Unidades do produto em estoque:\n'))
+                    price=float(input('Preço do produto:\nR$'))
+                    factory=int(input('Codigo da Fabrica:\n'))
+                    itens.save_products(description,unit,price,factory)
 
                 elif entryp == '2':
                     itens.list()
@@ -41,9 +57,6 @@ class Menu:
                 entrypu = input('Deseja comprar um produto ou ir ao ''shopping''?\n1 - Comprar um produto\n2 - Shopping\n3 - Historico de Compras\n4 - Conta Báncaria\n5 - SAIR\n')
                 if entrypu == '1':
                     buyl.buy()
-
-                elif entrypu == '2':
-                    buyl.shopping()
 
                 elif entrypu == '3':
                     buyl.historyF()

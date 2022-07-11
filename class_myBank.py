@@ -18,3 +18,7 @@ class Bullet:
         print('Seu saldo atual é de R$',self.valor)
         self.extract.append('Um valor de: R$',din,'Foi adicionado na sua conta',now,day)
 
+    def extract_l(self):
+        for i in len(range(self.extract)):
+            print(self.extract)
+

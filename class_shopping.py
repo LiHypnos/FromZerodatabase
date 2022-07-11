@@ -24,6 +24,8 @@ class Shop:
                 limial=self.entry.productsList[i].price*much
                 if self.bull.valor<limial:
                     print('Você não tem saldo o suficiente para efetuar essa compra')
+                elif self.entry.productsList[i].unit<much:
+                    print('Não temos essa quantidade de estoque do produto selecionado disponível!')
                 else:
                     self.bull.valor-=limial
                     self.entry.productsList[i].unit -= much

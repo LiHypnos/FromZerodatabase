@@ -1,123 +1,126 @@
 import datetime
 from class_product import *
 from class_factory import *
+from datetime import datetime
+
+#print(datetime.today().strftime('%Y-%m-%d %H:%M'))
 #databank link
 #_______________________________________________________________________________________________________________________
 import mysql.connector
-conexão = mysql
+
+#listpp = my_cursor.fetchall()
+#for i in listpp
+    #print(i)
+    #CRUD
+    #create
+    #Read
+    #Update
+    #Delete
+#print(conexão)
 #_______________________________________________________________________________________________________________________
 
 
-
-now = datetime.time
-time = datetime.datetime
-
 class Storage:
     def __init__(self):
-        self.factoryList= []
-        self.productsList= []
-        self.his= []
-        self.control= []
-        self.productsList.append(Product(cod='1', description="Bolacha", factory="Maria", unit=100, price=5))
-        self.factoryList.append(Factory(cod='1', descPro="bolacha", name='Maria'))
-        self.factoryList.append(Factory(cod='2', descPro="Lapís de Cor", name='FaberCastle'))
-        self.productsList.append(Product(cod='2', description="Lapís de Cor", factory="FaberCastle", unit=100, price=12))
 
+        self.conex = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='q1w2e3',
+            database='lojinha'
+        )
+        self.my_c = self.conex.cursor()
 
+    def save_fac(self, name, cod):
+        objef = Factory(name, cod)
+        comand_sql = f'insert into Factory ' \
+                     f'(namee) ' \
+                     f'value ' \
+                     f'("{objef.name}")'
 
-    def save_products(self):
-
-        codE = str(len(self.productsList)+1)
-        descryptionE = input('Informe  o nome:\n')
-        factoryE = input('Informe o fabricante:\n')
-        unitE = int(input('Informe a quantia do produto:\n'))
-        priceE = float(input('Valor do produto:\n'))
-        self.factoryList.append(Factory(name=factoryE, cod=codE, descPro=descryptionE))
-        Fac=self.factoryList
-        self.productsList.append(Product(cod=codE, description=descryptionE, factory=Fac, unit=unitE,price=priceE))
-        print('O código do produto é:',codE,'*')
-        print('Produto Adicionado!')
+        self.my_c.execute(comand_sql)
+        self.conex.commit()
+        print('Fábrica Adicionada!')
         print('_______________________________________________________________________________________________________')
 
+    def save_products(self, description, unit, price,factory):
+        objec = Product( description, unit, price,factory)
+        comandd_sql = f'insert into Storag (descriptionn,unit,price,FactoryCode) values ("{description}",{unit},{price},{factory})'
+        self.my_c.execute(comandd_sql)
+        self.conex.commit()
+        print('Produto Adicionado!')
+        print('______________________________________________________________________________________________________')
+
+    def link_factory(self,factory,up):
+        comandder_sql = f'insert into Storag ' \
+                        f'(FactoryCode) ' \
+                        f' (select cod from Factory where cod = {factory} where cod = {up}'
+        self.my_c.execute(comandder_sql)
+        self.conex.commit()
+        print('______________________________________________________________________________________________________')
+
+
     def list(self):
-        choose = input('Desejo listar todos (A)\nDesejo listar um produto esppecifico (B)\n')
-        if choose == 'A' or 'a':
-            for i in range(len(self.productsList)):
-                print('Código:',self.productsList[i].cod,'/',
-                    'Descrição:',self.productsList[i].description,'/',
-                    'Fabricante:',self.factoryList[i].name,'/',
-                    'Unidades:',self.productsList[i].unit,'/',
-                    'Preço: R$',self.productsList[i].price)
+        choose = input('Desejo listar todos (A)\nDesejo listar um produto especifico (B)\n')
+        if choose == 'A':
+            comand_sql = 'select * from Storag'
+            self.my_c.execute(comand_sql)
+            list = self.my_c.fetchall()
+            for i in list:
+                print(i)
                 print('___________________________________________________________________________________________________')
-        elif choose == 'B' or 'b':
-            entry = input('Informe o código do produto:\n')
-            for i in range(len(self.productsList)):
-                if entry == self.productsList[i].cod:
-                    print('Código:',self.productsList[i].cod,'/','Descrição:',self.productsList[i].description,'/','Fabricante:',self.factoryList[i].name,'/','Unidades:',self.productsList[i].unit,'/','Preço: R$', self.productsList[i].price,'/')
-                    print('___________________________________________________________________________________________________')
-                else:
-                    limo += 1
-                if limo == len(self.productsList):
-                    print('Código não existente')
+        elif choose == 'B':
+            pm = int(input('Digite o Código do produto:\n'))
+            comand_sql = f'select * from Storag where {pm} = Cod'
+            self.my_c.execute(comand_sql)
+            list = self.my_c.fetchall()
+            for i in list:
+                print(i)
+                print('___________________________________________________________________________________________________')
+        else:
+            print('Comando Inválido!')
 
     def change_product(self):
-        wish = input ('Deseja mudar todos os dados do produto ou um dado em específico?\nSe todos digite (A)\nSe específico digite (E)\n')
-        if wish == 'A':
-            wishl = input('Informe o código do produto:\n')
-            for i in range(len(self.productsList)):
-                if wishl == self.productsList[i].cod:
-                    self.productsList[i].descryption = input('Nova descrição:\n')
-                    self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!',time)
-                    print('_______________________________________________________________________________________________________')
-                    self.factoryList[i].name = input('Novo nome de fabricante:\n')
-                    self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!',time)
-                    print('_______________________________________________________________________________________________________')
-                    self.productsList[i].price = input('Novo preço:\nR$')
-                    self.his.append(f'Preço do produto {self.productsList[i].cod} alterado!',time)
-                    print('_______________________________________________________________________________________________________')
-                else:
-                    cont += 1
-                if cont == len(self.productsList):
-                    print('Código não existente')
-                print('_______________________________________________________________________________________________________')
-        elif wish == 'E':
-            wishl = input('Informe o código do produto:\n')
-            for i in range(len(self.productsList)):
-                if wishl == self.productsList[i].cod:
-                    will = input ('Deseja mudar a descrição ou o nome de fabricante do produto?\nSe descrição, digite (D)\nSe fabricante, digite (F)\nSe preço, digite (P)\n')
-                    if will == 'D':
-                        self.productsList[i].descryption = input('Nova descrição:\n')
-                        self.his.append(f'Descrição do produto {self.productsList[i].cod} alterada!',time)
-                        print('_______________________________________________________________________________________________________')
-                    elif will == 'F':
-                        self.factoryList[i].name = input('Novo nome de fabricante:\n')
-                        self.his.append(f'Nome do fabricante do produto {self.productsList[i].cod} alterado!',time)
-                        print('_______________________________________________________________________________________________________')
-                    elif will == 'P':
-                        self.productsList[i].price = input('Novo preço:\nR$')
-                        self.his.append(f'Preço do produto {self.productsList[i].cod} alterado!',time)
-                        print('_______________________________________________________________________________________________________')
-                else:
-                    lont += 1
-                if lont == len(self.productsList):
-                    print('Código não existente')
-                print('_______________________________________________________________________________________________________')
+        cod = int(input('Informe o código do produto:\n'))
+        conf = input('Deseja mudar qual coluna? Cod[],descriptionn[],unit[],price[]\n')
+        new = input('Nova informação:\n')
+        comand_sql = f'update Storag set "{conf}" = "{new}" where id = {cod}'
+        comand_sqls = f'insert into HistoryT '\
+                      f'(describ,datar) '\
+                      f'value '\
+                      f'(Item alterado na seguinte posição: "{conf}" where CodP = {cod})'
+        print('Atualizado com Sucesso!')
+        print('_____________________________________________________________________________________________________')
+        self.my_c.execute(comand_sql)
+        self.my_c.execute(comand_sqls)
+        self.conex.commit()
+
     def add_product(self):
         lup = input('Digite o código do produto que você deseja adicionar mais unidades\n')
-        for i in range(len(self.productsList)):
-            if lup == self.productsList[i].cod:
-                luple = int(input('Quantidade que deseja adicionar\n'))
-                self.productsList[i].unit += luple
-                self.his.append(f'Adicionado ao estoque do produto {self.productsList[i].cod} uma quantia de: {luple}',time)
-                print('Quantidade de',luple,'Adicionado ao estoque do produto com sucesso!!')
+        salko = int(input('Digite a quantidade que deseja adicionar ao estoque do produto\n'))
+        comand_sql = f'update Storag set {unit} = unit+{salko} where id = {lup}'
+        slk = datetime.today().strftime('%Y-%m-%d %H:%M')
+        comand_sqls = f'insert into HistoryT ' \
+                      f'(describ,datar) ' \
+                      f'value ' \
+                      f'("Item alterado na seguinte posição: "{unit}" where CodP = {cod})",("{slk}")'
+        self.my_c.execute(comand_sql)
+        self.my_c.execute(comand_sqls)
+        self.conex.commit()
 
-    def saveHistory(self,valor):
-        self.his.append(valor)
+
+
+    #def saveHistory(self,valor):
+        #self.append(valor)
 
 
     def history(self):
-        for i in range(len(self.his)):
-            print(self.his[i])
+            comand_sql = 'select * from HistoryT '
+            self.my_c.execute(comand_sql)
+            list = self.my_c.fetchall()
+            for i in list:
+                print(i)
+                print('___________________________________________________________________________________________________')
 
 
 
