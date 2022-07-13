@@ -1,7 +1,16 @@
 from class_storage import *
-
+from class_face import *
 from class_myBank import *
 from class_shop import *
+import tkinter
+from tkinter import *
+from m import *
+
+
+
+f = Facer()
+f.show_menu()
+
 
 class Menu:
     def __init__(self):

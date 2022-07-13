@@ -30,3 +30,4 @@ class Poc:
         print(f'Copiado! .geometry("{master.geometry()}")')
         master.clipboard_clear()
         master.clipboard_append(f'.geometry("{master.geometry()}")')
+
